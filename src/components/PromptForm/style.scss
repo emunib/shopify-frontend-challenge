@@ -1,5 +1,6 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/animations" as *;
 
 .prompt-form {
   @include flex-display(column);
@@ -29,7 +30,7 @@
       border: 2px solid $primary;
     }
 
-    &--error {
+    &--error, &--error:focus {
       border: 2px solid $error;
     }
   }
@@ -63,4 +64,11 @@
       cursor: pointer;
     }
   }
+
+  &__spinner {
+    animation: spin 1s infinite linear;
+  }
 }
+
+
+

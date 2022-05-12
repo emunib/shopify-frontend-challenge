@@ -10,6 +10,7 @@ import './App.scss';
 function App() {
     const [results, setResults] = useState([]);
     const [isFormError, setIsFormError] = useState(false);
+    const [isFormLoading, setIsFormLoading] = useState(false);
 
     const data = {
         temperature: 0.7,
@@ -36,8 +37,11 @@ function App() {
 
         if (value === '') {
             setIsFormError(true);
+            e.target.prompt.focus();
         } else {
             try {
+                setIsFormLoading(true);
+
                 const data = await postPrompt(value);
                 const newResult = {
                     id: uuid(),
@@ -46,9 +50,11 @@ function App() {
                 };
 
                 setResults((prevState) => [newResult, ...prevState]);
+                setIsFormLoading(false);
                 e.target.reset();
             } catch (e) {
                 console.log(e);
+                setIsFormLoading(false);
             }
         }
     };
@@ -60,7 +66,10 @@ function App() {
     return (
         <main className="app">
             <h1 className="app__title">Fun with AI!</h1>
-            <PromptForm handleSubmit={handleSubmit} handleChange={handleChange} isError={isFormError}/>
+            <PromptForm handleSubmit={handleSubmit}
+                        handleChange={handleChange}
+                        isError={isFormError}
+                        isLoading={isFormLoading}/>
             <h2 className="app__results-title">Responses</h2>
             <ul className="app__results-list">
                 {results.map((result) => <ResultItem key={result.id} {...result}/>)}
