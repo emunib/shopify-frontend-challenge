@@ -1,0 +1,57 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.prompt-form {
+  @include flex-display(column);
+  margin-bottom: 2rem;
+
+  &__label {
+    text-transform: uppercase;
+    @include font-style(0.75rem, 600, 0.5rem)
+  }
+
+  &__textarea {
+    outline: none;
+    border: 1px solid $neutral;
+    border-radius: $radius;
+    resize: none;
+    height: 6rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    font-family: $font-stack;
+    @include font-style(0.75rem, $color: $text-primary);
+    line-height: 120%;
+
+    &::placeholder {
+      @include font-style(0.75rem, $color: $text-secondary);
+    }
+
+    &:focus {
+      border: 2px solid $primary;
+    }
+  }
+
+  &__button {
+    outline: none;
+    border: none;
+    border-radius: $radius;
+    height: 2.5rem;
+    min-width: 6rem;
+    background-color: $primary;
+    font-family: $font-stack;
+    text-transform: uppercase;
+    @include font-style(0.75rem, 600, $color: $text-light);
+
+    @include tablet {
+      align-self: flex-end;
+    }
+
+    &:hover, &:focus {
+      background-color: $dark;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

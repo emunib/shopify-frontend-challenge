@@ -1,6 +1,11 @@
 import axios from 'axios';
 import {useState} from 'react';
 import {v4 as uuid} from 'uuid';
+import PromptForm from './components/PromptForm';
+import ResultItem from './components/ResultItem';
+
+import './styles/global.scss';
+import './App.scss';
 
 function App() {
     const [results, setResults] = useState([]);
@@ -27,34 +32,31 @@ function App() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = await postPrompt(e.target.prompt.value);
-        const newResult = {
-            id: uuid(),
-            prompt: e.target.prompt.value,
-            response: data.choices[0].text
-        };
+        try {
+            const data = await postPrompt(e.target.prompt.value);
+            const newResult = {
+                id: uuid(),
+                prompt: e.target.prompt.value,
+                response: data.choices[0].text
+            };
 
-        setResults((prevState) => [newResult, ...prevState]);
+            setResults((prevState) => [newResult, ...prevState]);
+            e.target.reset();
+        } catch (e) {
+            console.log(e);
+        }
+
     };
 
     return (
-        <div className="App">
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="prompt">Prompt</label>
-                <textarea id="prompt" name="prompt" placeholder="Enter a prompt..."></textarea>
-                <button type="submit">Submit</button>
-            </form>
-
-            <ul>
-                {results.map(result => (
-                        <li key={result.id}>
-                            <p>{result.prompt}</p>
-                            <p>{result.response}</p>
-                        </li>
-                    )
-                )}
+        <main className="app">
+            <h1 className="app__title">Fun with AI!</h1>
+            <PromptForm handleSubmit={handleSubmit}/>
+            <h2 className="app__results-title">Responses</h2>
+            <ul className="app__results-list">
+                {results.map((result) => <ResultItem key={result.id} {...result}/>)}
             </ul>
-        </div>
+        </main>
     );
 }
 

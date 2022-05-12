@@ -1,0 +1,31 @@
+@use "./styles/partials/variables" as *;
+@use "./styles/partials/mixins" as *;
+
+.app {
+  @include flex-display(column);
+  padding: 2rem;
+  background-color: white;
+  min-height: 100vh;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 0 15px 0;
+
+  @include tablet {
+    @include max-width($tablet-size - 10rem);
+    padding: 3rem;
+  }
+
+  @include desktop {
+    @include max-width($desktop-size - 10rem);
+    padding: 4rem;
+  }
+
+  &__title {
+    @include font-style(2rem, 600, 2rem);
+  }
+  &__results-title {
+    @include font-style(1.5rem, 600, 1.5rem);
+  }
+
+  &__results-list {
+    @include flex-display(column, $gap: 1.25rem)
+  }
+}

@@ -1,0 +1,27 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.result {
+  border: solid 1px $light;
+  border-radius: $radius;
+  background-color: $light;
+  overflow: clip;
+
+  &__section {
+    padding: 1rem;
+
+    &--light {
+      background-color: white;
+      width: 100%;
+    }
+  }
+
+  &__heading {
+    text-transform: uppercase;
+    @include font-style(0.75rem, 600, 0.5rem)
+  }
+
+  &__text {
+    line-height: 115%;
+  }
+}
