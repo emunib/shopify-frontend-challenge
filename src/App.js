@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {v4 as uuid} from 'uuid';
 import PromptForm from './components/PromptForm';
 import ResultItem from './components/ResultItem';
@@ -8,10 +8,13 @@ import './styles/global.scss';
 import './App.scss';
 
 function App() {
-    const [results, setResults] = useState([]);
+    // get previous results data from localStorage if available
+    const [results, setResults] = useState(JSON.parse(localStorage.getItem('results')) || []);
+
     const [isFormError, setIsFormError] = useState(false);
     const [isFormLoading, setIsFormLoading] = useState(false);
 
+    // openai request data
     const data = {
         temperature: 0.7,
         max_tokens: 64,
@@ -20,12 +23,20 @@ function App() {
         presence_penalty: 0
     };
 
+    // axios request header
     const config = {
         headers: {
             Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`
         }
     };
 
+    // save latest results to localStorage
+    useEffect(() => {
+        localStorage.setItem('results', JSON.stringify(results));
+    }, [results]);
+
+    // makes a post request to openia with the given prompt and using the text-curie-001 engine
+    // returns the response
     const postPrompt = async (prompt) => {
         const res = await axios.post(process.env.REACT_APP_API_URL, {...data, prompt}, config);
         return res.data;
@@ -33,11 +44,11 @@ function App() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        e.target.prompt.focus();
         const value = e.target.prompt.value;
 
         if (value === '') {
             setIsFormError(true);
-            e.target.prompt.focus();
         } else {
             try {
                 setIsFormLoading(true);

@@ -20,13 +20,20 @@
 
   &__title {
     @include font-style(2rem, 600, 2rem);
+
+    @include desktop {
+      @include font-style(3rem, 600, 3rem);
+    }
   }
 
   &__results-title {
     @include font-style(1.5rem, 600, 1.5rem);
+    @include desktop {
+      @include font-style(2rem, 600, 2rem);
+    }
   }
 
   &__results-list {
-    @include flex-display(column, $gap: 1.25rem)
+    @include flex-display(column, $gap: 1.25rem);
   }
 }

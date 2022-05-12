@@ -8,7 +8,7 @@
 
   &__label {
     text-transform: uppercase;
-    @include font-style(0.75rem, 600, 0.5rem)
+    @include font-style(0.75rem, 600, 0.5rem);
   }
 
   &__textarea {

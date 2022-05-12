@@ -3,14 +3,14 @@
 // tablet media query
 @mixin tablet {
   @media screen and (min-width: $tablet-size) {
-    @content
+    @content;
   }
 }
 
 // desktop media query
 @mixin desktop {
   @media screen and (min-width: $desktop-size) {
-    @content
+    @content;
   }
 }
 
