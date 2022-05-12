@@ -9,6 +9,7 @@ import './App.scss';
 
 function App() {
     const [results, setResults] = useState([]);
+    const [isFormError, setIsFormError] = useState(false);
 
     const data = {
         temperature: 0.7,
@@ -31,27 +32,35 @@ function App() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const value = e.target.prompt.value;
 
-        try {
-            const data = await postPrompt(e.target.prompt.value);
-            const newResult = {
-                id: uuid(),
-                prompt: e.target.prompt.value,
-                response: data.choices[0].text
-            };
+        if (value === '') {
+            setIsFormError(true);
+        } else {
+            try {
+                const data = await postPrompt(value);
+                const newResult = {
+                    id: uuid(),
+                    prompt: value,
+                    response: data.choices[0].text
+                };
 
-            setResults((prevState) => [newResult, ...prevState]);
-            e.target.reset();
-        } catch (e) {
-            console.log(e);
+                setResults((prevState) => [newResult, ...prevState]);
+                e.target.reset();
+            } catch (e) {
+                console.log(e);
+            }
         }
+    };
 
+    const handleChange = () => {
+        setIsFormError(false);
     };
 
     return (
         <main className="app">
             <h1 className="app__title">Fun with AI!</h1>
-            <PromptForm handleSubmit={handleSubmit}/>
+            <PromptForm handleSubmit={handleSubmit} handleChange={handleChange} isError={isFormError}/>
             <h2 className="app__results-title">Responses</h2>
             <ul className="app__results-list">
                 {results.map((result) => <ResultItem key={result.id} {...result}/>)}

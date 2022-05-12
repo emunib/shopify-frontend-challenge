@@ -17,7 +17,6 @@
     resize: none;
     height: 6rem;
     padding: 1rem;
-    margin-bottom: 0.5rem;
     font-family: $font-stack;
     @include font-style(0.75rem, $color: $text-primary);
     line-height: 120%;
@@ -29,9 +28,19 @@
     &:focus {
       border: 2px solid $primary;
     }
+
+    &--error {
+      border: 2px solid $error;
+    }
+  }
+
+  &__error-msg {
+    @include font-style(0.75rem, $color: $error);
+    margin-top: 0.25rem;
   }
 
   &__button {
+    margin-top: 0.75rem;
     outline: none;
     border: none;
     border-radius: $radius;

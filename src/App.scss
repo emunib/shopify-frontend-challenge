@@ -21,6 +21,7 @@
   &__title {
     @include font-style(2rem, 600, 2rem);
   }
+
   &__results-title {
     @include font-style(1.5rem, 600, 1.5rem);
   }
