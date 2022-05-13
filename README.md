@@ -1,9 +1,19 @@
 # Shopify Frontend Challenge
 
-An app built as part of a Shopify job application. It allows you to interact with [OpenAI's](https://openai.com/api/s) GPT-3 AI model via a clean and simple user interface.
+An app built as part of a Shopify job application. It allows you to interact with [OpenAI's](https://openai.com/api/) GPT-3 AI model via a clean and simple user interface.
 ## Demo
 
 The live app can be found at [https://emunib-shopify-frontend-challenge.netlify.app/](https://emunib-shopify-frontend-challenge.netlify.app/)
+
+## Environment Variables
+
+To run this project locally, you will need to add the following environment variables to a .env file located in the root directory:
+
+```
+REACT_APP_API_URL=https://api.openai.com/v1/engines/text-curie-001/completions
+REACT_APP_API_KEY=<OpenAI API Key>
+```
+The `REACT_APP_API_KEY` can be obtained for free at [OpenAI](https://openai.com/api/) after signing up.
 
 ## Usage
 
